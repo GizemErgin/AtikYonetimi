@@ -1,0 +1,111 @@
+﻿@using AtikYonetim.Models.ViewModel;
+@using System.Collections.Generic;
+
+@model AtikYonetim.Models.ViewModel.WasteOperationVM
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Month</th>
+            <th scope="col">Store</th>
+            <th scope="col">Waste Type</th>
+            <th scope="col">Waste Sort</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Receiving Company</th>
+            <th scope="col">Waste Date</th>
+            <th scope="col">Content</th>
+            <th scope="col">Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            @foreach (var item in ViewBag.Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Month</td>
+                    <td>@item.Store</td>
+                    <td>@item.WasteType</td>
+                    <td>@item.WasteSort</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Unit</td>
+                    <td>@item.ReceivingCompany</td>
+                    <td>@item.WasteDate</td>
+                    <td>@item.Content</td>
+                    <td>
+                        <a href="#" class="view" data-target="/home/Detail/@item.ID">Güncelle</a>
+                        <a href="#" onclick="location.href='@Url.Action("Delete", "Home", new{id = item.ID})'">Sil</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+
+
+
+@* onclick="location.href='@Url.Action("Update", "Home", new{id = item.ID})'"
+*@
+
+
+@*Update Modal*@
+
+<div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atık İşlemleri</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        // a tagimizde bulunan .view classımıza click olduğunda
+        $("body").on("click", ".view", function () {
+            //data-target dan url mizi al
+            var url = $(this).data("target");
+            //bu urlimizi post et
+            $.post(url, function (data) { })
+                //eğer işlemimiz başarılı bir şekilde gerçekleşirse
+                .done(function (data) {
+                    $("Model").sa
+                    //gelen datayı .modal-body mizin içerise html olarak ekle
+                    $("#modalView .modal-body").html(data);
+                    //sonra da modalimizi göster
+                    $("#modalView").modal("show");
+                })
+                //eğer işlem başarısız olursa
+                .fail(function () {
+                    //modalımızın bodysine Error! yaz
+                    $("#modalView .modal-body").text("Error!!");
+                    //sonra da modalimizi göster
+                    $("#modalView").modal("show");
+                })
+
+        });
+    })
+
+</script>
+

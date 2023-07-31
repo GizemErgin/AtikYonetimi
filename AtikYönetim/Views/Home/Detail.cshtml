@@ -1,0 +1,92 @@
+﻿@model AtikYonetim.Models.ViewModel.WasteOperationVM
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+@using (Html.BeginForm("Update", "Home", FormMethod.Get, new { wasteOperation = Model}))
+{
+
+
+    <div class="form-group" name="new">
+        <div class="input-group col-12">
+            @Html.Hidden("ID",Model.ID)
+
+            <div class="input-group col-6">
+                <label class="input-group-text" for="Month">Ay</label>
+                @Html.DropDownList("Month", (SelectList)ViewBag.Month,  new { @class = "form-select"})
+            </div>
+            <div class="input-group col-6">
+
+                <label class="input-group-text" for="Store">Mağaza</label>
+                @Html.DropDownList("Store", (SelectList)ViewBag.Store, new { @class = "form-select" })
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="input-group col-12">
+            <div class="input-group col-6">
+
+                <label class="input-group-text" for="WasteType">Atık Tipi</label>
+                @Html.DropDownList("WasteType", (SelectList)ViewBag.WasteType, new { @class = "form-select" })
+            </div>
+
+            <div class="input-group col-6">
+
+                <label class="input-group-text" for="WasteSort">Atık Çeşiti</label>
+                @Html.DropDownList("WasteSort", (SelectList)ViewBag.WasteSort, new { @class = "form-select" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="input-group col-12">
+            <div class="input-group col-6">
+
+                <label class="input-group-text" for="Quantity">Miktar</label>
+                @Html.TextBoxFor(m=> m.Quantity, new { @class = "form-control", @type = "number", @min ="0" })
+            </div>
+
+            <div class="input-group col-6">
+                <label class="input-group-text" for="Unit">Birim</label>
+                @Html.DropDownList("Unit", (SelectList)ViewBag.Unit, new { @class = "form-select" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="input-group col-12">
+            <div class="input-group col-6">
+                <label class="input-group-text" for="Company">Firma</label>
+                @Html.DropDownList("ReceivingCompany", (SelectList)ViewBag.Company, new { @class = "form-select" })
+            </div>
+
+            <div class="input-group col-6">
+                <label class="input-group-text" for="WasteDate">Tarih</label>
+                @Html.TextBoxFor(m=> m.WasteDate, Model.WasteDate.ToString("yyyy-MM-dd"), new { @id="WasteDate", @class = "form-control", @type = "date"})
+            </div>
+        </div>
+
+        <br />
+
+        <div class="input-group col-12">
+            <div class="input-group col-12">
+                <label class="input-group-text" for="Content">İçerik</label>
+                @Html.TextAreaFor(m=> m.Content, new { @id="Content", @class = "form-control", @type = "text"})
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='@Url.Action("Index", "Home")'">Kapat</button>
+        <button type="sumbit" class="btn btn-primary" >Kaydet</button>
+    </div>
+
+}
